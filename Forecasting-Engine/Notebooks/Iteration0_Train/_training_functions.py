@@ -7,8 +7,8 @@ import pandas as pd
 
 from prophet import Prophet
 
-from _local_config import version
-from Notebooks.Support_Functions._config import model_path, model_type, plot_path, root
+from Notebooks.Iteration0_Train._local_config import version
+from Notebooks.Support_Functions._config import model_path, plot_path, root
 from Notebooks.Support_Functions._pkl_functions import load_model, serialize_model
 from Notebooks.Support_Functions._plot_utils import create_legend, plot_config
 
@@ -70,13 +70,13 @@ def train_rods_prophet_model(train_data, test_data):
     hyper_params = pd.DataFrame(hyper_params, columns = ['train_mape','parameters'])
     best = hyper_params[hyper_params.train_mape == hyper_params.train_mape.min()]
     best['train_date'] = now
-    serialize_model(best[['parameters', 'train_date']], model_path.format(version, model_type))
+    serialize_model(best[['parameters', 'train_date']], model_path.format(version))
 
 
 def validate_rods_prophet_model(train_data, test_data):
     """ This function loads the current model deployed and validates train, test mapes"""
     # Validate Model: Load Model
-    parameter_dataframe = load_model(model_path.format(version,model_type))
+    parameter_dataframe = load_model(model_path.format(version))
     parameters = parameter_dataframe['parameters'].iloc[0]
 
     # Vaidate Model: Fit a model using one parameter combination
@@ -111,4 +111,5 @@ def validate_rods_prophet_model(train_data, test_data):
     # Setting Legends
     create_legend({'Original Data':'C0', 'Forecast':'red'}, axis)
     plt.savefig(plot_path.format(version))
+    
     return train_mape, test_mape

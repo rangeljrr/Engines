@@ -1,0 +1,6 @@
+process_status, timestamp
+Processed Started,2023-02-20 14:56:22.743080
+Data Loaded Successfully,2023-02-20 14:56:22.768266
+Data Prepped Successfully,2023-02-20 14:56:22.796446
+Feature Engineer Successful,2023-02-20 14:56:22.814560
+Model Trained Successfully,2023-02-20 14:56:23.145513
